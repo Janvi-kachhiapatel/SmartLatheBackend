@@ -1,0 +1,8 @@
+MODBUS_HOST = "10.10.14.127"
+MODBUS_PORT = 502
+
+OPCUA_URL = "opc.tcp://10.10.14.135:4840"
+
+DATABASE_URL = "sqlite:///./lathe.db"
+
+POLL_INTERVAL = 1
