@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 from datetime import datetime
+from pydantic import BaseModel
 
+class LoginRequest(BaseModel):
+    username: str
+    password: str
 
 class MachineSnapshotSchema(BaseModel):
     machine_status: str
@@ -24,3 +28,16 @@ class MachineSnapshotSchema(BaseModel):
 
     class Config:
         from_attributes = True
+
+from pydantic import BaseModel
+from typing import List, Optional
+
+
+class ExportRequest(BaseModel):
+    dashboards: List[str]
+    parameters: List[str]
+
+    duration: str
+
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None

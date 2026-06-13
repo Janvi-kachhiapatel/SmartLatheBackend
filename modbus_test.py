@@ -9,7 +9,7 @@ for unit in [1, 2, 3, 4, 5]:
         print(f"\nTesting Unit {unit}")
 
         result = client.read_holding_registers(
-            address=4001,
+            #address=4001,
             count=2,
             device_id=unit
         )

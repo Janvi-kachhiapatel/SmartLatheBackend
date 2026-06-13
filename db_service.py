@@ -72,6 +72,58 @@ def save_snapshot(data):
 
     frequency=data["energy"]["data"].get("frequency", 0),
 
+    avg_voltage_ln=data["energy"]["data"].get("avg_voltage_LN", 0),
+    avg_voltage_ll=data["energy"]["data"].get("avg_voltage_LL", 0),
+
+    kw1=data["energy"]["data"].get("kW1", 0),
+    kw2=data["energy"]["data"].get("kW2", 0),
+    kw3=data["energy"]["data"].get("kW3", 0),
+
+    avg_pf=data["energy"]["data"].get("avg_PF", 0),
+
+    total_net_kwh_dg=data["energy"]["data"].get("total_net_kwh_dg", 0),
+    total_net_kvarh_dg=data["energy"]["data"].get("total_net_kvarh_dg", 0),
+    total_net_kvah_dg=data["energy"]["data"].get("total_net_kvah_dg", 0),
+
+    max_dmd_active_power=data["energy"]["data"].get("max_dmd_active_power", 0),
+    max_dmd_reactive_power=data["energy"]["data"].get("max_dmd_reactive_power", 0),
+    max_dmd_apparent_power=data["energy"]["data"].get("max_dmd_apparent_power", 0),
+
+    kwh1_import=data["energy"]["data"].get("kwh1_import", 0),
+    kwh2_import=data["energy"]["data"].get("kwh2_import", 0),
+    kwh3_import=data["energy"]["data"].get("kwh3_import", 0),
+
+    kwh1_export=data["energy"]["data"].get("kwh1_export", 0),
+    kwh2_export=data["energy"]["data"].get("kwh2_export", 0),
+    kwh3_export=data["energy"]["data"].get("kwh3_export", 0),
+
+    total_kwh_import=data["energy"]["data"].get("total_kwh_import", 0),
+    total_kwh_export=data["energy"]["data"].get("total_kwh_export", 0),
+
+    kvarh1_import=data["energy"]["data"].get("kvarh1_import", 0),
+
+    kva1_energy=data["energy"]["data"].get("kVA1", 0),
+    kva2_energy=data["energy"]["data"].get("kVA2", 0),
+    kva3_energy=data["energy"]["data"].get("kVA3", 0),
+
+    kvar1_energy=data["energy"]["data"].get("kVAR1", 0),
+    kvar2_energy=data["energy"]["data"].get("kVAR2", 0),
+    kvar3_energy=data["energy"]["data"].get("kVAR3", 0),
+
+    kvar1=data["energy"]["data"].get("kvar1", 0),
+    kvar2=data["energy"]["data"].get("kvar2", 0),
+    kvar3=data["energy"]["data"].get("kvar3", 0),
+
+    kva1=data["energy"]["data"].get("kva1", 0),
+    kva2=data["energy"]["data"].get("kva2", 0),
+    kva3=data["energy"]["data"].get("kva3", 0),
+
+    total_kvar=data["energy"]["data"].get("total_kvar", 0),
+    total_kva=data["energy"]["data"].get("total_kva", 0),
+
+    total_net_kwh=data["energy"]["data"].get("total_net_kwh", 0),
+    total_net_kvarh=data["energy"]["data"].get("total_net_kvarh", 0),
+
     # Position
     x_position=data["position"].get("x_position", 0),
     y_position=data["position"].get("y_position", 0),

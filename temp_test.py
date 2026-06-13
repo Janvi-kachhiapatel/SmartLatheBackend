@@ -1,23 +1,36 @@
-from pymodbus.client import ModbusTcpClient
-import struct
+# from pymodbus.client import ModbusTcpClient
 
-def decode(regs):
-    packed = struct.pack(">HH", regs[0], regs[1])
-    return round(struct.unpack(">f", packed)[0], 4)
+# client = ModbusTcpClient(
+#     "10.10.14.127",
+#     port=502
+# )
 
-client = ModbusTcpClient("10.10.14.127", port=502)
+# print("Connect =", client.connect())
 
-if client.connect():
+# for addr in [4001, 4003, 4031, 4035]:
 
-    for addr in range(56, 80, 2):
+#     print(f"\nTesting Register {addr}")
 
-        r = client.read_input_registers(
-            address=addr,
-            count=2,
-            device_id=3
-        )
+#     try:
 
-        if not r.isError():
-            print(f"{addr} = {decode(r.registers)}")
+#         result = client.read_holding_registers(
+#             address=addr,
+#             count=2,
+#             device_id=2
+#         )
 
-    client.close()
+#         print(result)
+
+#         if hasattr(result, "registers"):
+#             print("Registers =", result.registers)
+
+#     except Exception as e:
+#         print("ERROR =", e)
+
+# client.close()
+from database import engine
+from models import Base
+
+Base.metadata.create_all(bind=engine)
+
+exit()

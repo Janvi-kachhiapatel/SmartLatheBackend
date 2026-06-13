@@ -71,7 +71,7 @@ def safe_read(client, unit, address, count=2):
 
 def read_vibit(client, unit):
     return {
-        "x_rms_acceleration": decode_float_vibit(safe_read(client, unit, 4001)),
+        #"x_rms_acceleration": decode_float_vibit(safe_read(client, unit, 4001)),
         "y_rms_acceleration": decode_float_vibit(safe_read(client, unit, 4003)),
         "z_rms_acceleration": decode_float_vibit(safe_read(client, unit, 4005)),
 
@@ -89,8 +89,8 @@ def read_vibit(client, unit):
         "y_peak_velocity": decode_float_vibit(safe_read(client, unit, 4023)),
         "z_peak_velocity": decode_float_vibit(safe_read(client, unit, 4025)),
 
-        "reboot_count": decode_int(safe_read(client, unit, 4031, 1)),
-        "led_status": decode_int(safe_read(client, unit, 4035, 1)),
+        #"reboot_count": decode_int(safe_read(client, unit, 4031, 1)),
+        #"led_status": decode_int(safe_read(client, unit, 4035, 1)),
 
         "rpm": 0
     }
@@ -238,10 +238,17 @@ def read_esp32():
         data = response.json()
 
         return {
-            "x_position": data.get("x", 0),
-            "y_position": data.get("y", 0),
-            "rpm": data.get("rpm", 0)
-        }
+      "machine_status": data.get("machine_status", "OFF"),
+    "chuck_key_status": data.get("chuck_key_status", 0),
+    "red_buzzer": data.get("red_buzzer", 0),
+
+    "x_position": data.get("x_position", 0),
+    "y_position": data.get("y_position", 0),
+
+    "rpm": data.get("rpm", 0),
+    "depth_of_cutting": data.get("depth_of_cutting", 0),
+    "cutting_speed": data.get("cutting_speed", 0),
+}
 
     except Exception as e:
         print("ESP32 Error:", e)
@@ -249,9 +256,10 @@ def read_esp32():
         return {
             "x_position": 0,
             "y_position": 0,
-            "rpm": 0
+            "rpm": 0,
+            "depth_of_cutting": 0,
+            "cutting_speed": 0,
         }
-
 
 def collect_live_data():
 
@@ -291,11 +299,24 @@ def collect_live_data():
     machine_status, position, chuck = read_opc()
 
     esp32 = read_esp32()
+    print("ESP DATA =", esp32)
 
+    
+    # Position
     position["x_position"] = esp32["x_position"]
     position["y_position"] = esp32["y_position"]
+    position["depth_of_cutting"] = esp32["depth_of_cutting"]
+    position["cutting_speed"] = esp32["cutting_speed"]
 
+    # RPM
     rpm_value = esp32["rpm"]
+
+    # Machine status from ESP
+    machine_status = esp32["machine_status"]
+
+    # Chuck from ESP
+    chuck["chuck_on"] = esp32["chuck_key_status"]
+    chuck["red_buzzer"] = esp32["red_buzzer"]
 
     vibit1["rpm"] = rpm_value
     vibit2["rpm"] = rpm_value
@@ -323,6 +344,7 @@ def collect_live_data():
     machine_status, position, chuck = read_opc()
 
     esp32 = read_esp32()
+    print("ESP DATA =", esp32)
 
     position["x_position"] = esp32["x_position"]
     position["y_position"] = esp32["y_position"]
